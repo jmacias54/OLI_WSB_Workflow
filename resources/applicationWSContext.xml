@@ -15,22 +15,21 @@
 	<context:annotation-config />
 
 
-	<context:component-scan base-package="mx.com.amx.unotv.adminservice" />
+	<context:component-scan base-package="mx.com.amx.unotv.oli.wsb.workflow.controller" />
 
 
 
-	<!-- Llamadas WS 
-	<bean id="catalogsCallWS" class="mx.com.amx.unotv.adminservice.ws.CatalogsCallWS"></bean>
+	<!-- Llamadas WS -->
+
+	<bean id="nNotaCallWS" class="mx.com.amx.unotv.oli.wsb.workflow.ws.NNotaCallWS"></bean>	
+	<bean id="hNotaCallWS" class="mx.com.amx.unotv.oli.wsb.workflow.ws.HNotaCallWS"></bean>	
 	
-	-->
+	<!-- Business Object -->
 	
+	<bean id="detailBO" class="mx.com.amx.unotv.oli.wsb.workflow.bo.DetailBO"></bean>
+	<bean id="notaBO" class="mx.com.amx.unotv.oli.wsb.workflow.bo.NotaBO"></bean>
 	
-	<!-- Business Object 
-	<bean id="catalogsBO" class="mx.com.amx.unotv.adminservice.bo.CatalogsBO"></bean>-->
-	
-	
-	
-	
+	<bean id="MapItemUtil" class="mx.com.amx.unotv.oli.wsb.workflow.util.MapItemUtil"></bean>
 	
 	<bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
