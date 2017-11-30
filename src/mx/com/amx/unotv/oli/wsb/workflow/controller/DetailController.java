@@ -34,6 +34,7 @@ public class DetailController {
 	public int saveItem(@RequestBody Item item) throws ControllerException {
 		logger.info("--- DetailController-----");
 		logger.info("--- saveItem -----");
+		logger.debug("--- DTO :"+item.toString());
 
 		try {
 
@@ -51,7 +52,7 @@ public class DetailController {
 	public int expireItem(@RequestBody Item item) throws ControllerException {
 		logger.info("--- DetailController-----");
 		logger.info("--- expire_item -----");
-
+		logger.debug("--- DTO :"+item.toString());
 		try {
 
 			return detailBO.expireItem(item);
@@ -68,7 +69,7 @@ public class DetailController {
 	public Item reviewItem(@RequestBody Item item) throws ControllerException {
 		logger.info("--- DetailController-----");
 		logger.info("--- review_item -----");
-
+		logger.debug("--- DTO :"+item.toString());
 		try {
 
 			return detailBO.reviewItem(item);

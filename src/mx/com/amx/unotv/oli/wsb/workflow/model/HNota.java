@@ -35,6 +35,60 @@ public class HNota implements Serializable {
 	public HNota() {
 	}
 
+	
+	
+	/**
+	 * @param fcIdContenido
+	 * @param clGaleria
+	 * @param clRtfContenido
+	 * @param fcAutor
+	 * @param fcDescripcion
+	 * @param fcFriendlyUrl
+	 * @param fcIdCategoria
+	 * @param fcIdClassVideo
+	 * @param fcIdContentOoyala
+	 * @param fcIdPlayerOoyala
+	 * @param fcIdTipoNota
+	 * @param fcIdYoutube
+	 * @param fcImagen
+	 * @param fcKeywords
+	 * @param fcPieImagen
+	 * @param fcTitulo
+	 * @param fcUrlAutor
+	 * @param fdFechaModificacion
+	 * @param fdFechaPublicacion
+	 * @param fiBanOtros
+	 */
+	public HNota(String fcIdContenido, String clGaleria, String clRtfContenido, String fcAutor, String fcDescripcion,
+			String fcFriendlyUrl, String fcIdCategoria, String fcIdClassVideo, String fcIdContentOoyala,
+			String fcIdPlayerOoyala, String fcIdTipoNota, String fcIdYoutube, String fcImagen, String fcKeywords,
+			String fcPieImagen, String fcTitulo, String fcUrlAutor, String fdFechaModificacion,
+			String fdFechaPublicacion, Integer fiBanOtros) {
+		super();
+		this.fcIdContenido = fcIdContenido;
+		this.clGaleria = clGaleria;
+		this.clRtfContenido = clRtfContenido;
+		this.fcAutor = fcAutor;
+		this.fcDescripcion = fcDescripcion;
+		this.fcFriendlyUrl = fcFriendlyUrl;
+		this.fcIdCategoria = fcIdCategoria;
+		this.fcIdClassVideo = fcIdClassVideo;
+		this.fcIdContentOoyala = fcIdContentOoyala;
+		this.fcIdPlayerOoyala = fcIdPlayerOoyala;
+		this.fcIdTipoNota = fcIdTipoNota;
+		this.fcIdYoutube = fcIdYoutube;
+		this.fcImagen = fcImagen;
+		this.fcKeywords = fcKeywords;
+		this.fcPieImagen = fcPieImagen;
+		this.fcTitulo = fcTitulo;
+		this.fcUrlAutor = fcUrlAutor;
+		this.fdFechaModificacion = fdFechaModificacion;
+		this.fdFechaPublicacion = fdFechaPublicacion;
+		this.fiBanOtros = fiBanOtros;
+	}
+
+
+
 	public String getFcIdContenido() {
 		return this.fcIdContenido;
 	}
@@ -193,6 +247,20 @@ public class HNota implements Serializable {
 
 	public void setFiBanOtros(Integer fiBanOtros) {
 		this.fiBanOtros = fiBanOtros;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "HNota [fcIdContenido=" + fcIdContenido + ", clGaleria=" + clGaleria + ", clRtfContenido="
+				+ clRtfContenido + ", fcAutor=" + fcAutor + ", fcDescripcion=" + fcDescripcion + ", fcFriendlyUrl="
+				+ fcFriendlyUrl + ", fcIdCategoria=" + fcIdCategoria + ", fcIdClassVideo=" + fcIdClassVideo
+				+ ", fcIdContentOoyala=" + fcIdContentOoyala + ", fcIdPlayerOoyala=" + fcIdPlayerOoyala
+				+ ", fcIdTipoNota=" + fcIdTipoNota + ", fcIdYoutube=" + fcIdYoutube + ", fcImagen=" + fcImagen
+				+ ", fcKeywords=" + fcKeywords + ", fcPieImagen=" + fcPieImagen + ", fcTitulo=" + fcTitulo
+				+ ", fcUrlAutor=" + fcUrlAutor + ", fdFechaModificacion=" + fdFechaModificacion
+				+ ", fdFechaPublicacion=" + fdFechaPublicacion + ", fiBanOtros=" + fiBanOtros + "]";
 	}
 
 }

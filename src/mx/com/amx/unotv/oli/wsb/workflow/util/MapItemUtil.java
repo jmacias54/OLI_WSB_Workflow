@@ -4,6 +4,7 @@
 package mx.com.amx.unotv.oli.wsb.workflow.util;
 
 
+import mx.com.amx.unotv.oli.wsb.workflow.model.HNota;
 import mx.com.amx.unotv.oli.wsb.workflow.model.Item;
 import mx.com.amx.unotv.oli.wsb.workflow.model.NNota;
 
@@ -15,6 +16,19 @@ import mx.com.amx.unotv.oli.wsb.workflow.model.NNota;
 
 public class MapItemUtil {
 
+	
+	public HNota MapNNotaToHNota(NNota nNota) {
+
+		HNota hnota = new HNota(nNota.getFcIdContenido(), nNota.getClGaleria(), nNota.getClRtfContenido(),
+				nNota.getFcAutor(), nNota.getFcDescripcion(), nNota.getFcFriendlyUrl(), nNota.getFcIdCategoria(),
+				nNota.getFcIdClassVideo(), nNota.getFcIdContentOoyala(), nNota.getFcIdPlayerOoyala(),
+				nNota.getFcTipoNota(), nNota.getFcIdYoutube(), nNota.getFcImagen(), nNota.getFcKeywords(),
+				nNota.getFcPieImagen(), nNota.getFcTitulo(), nNota.getFcUrlAutor(), nNota.getFdFechaModificacion(),
+				nNota.getFdFechaPublicacion(), Integer.parseInt(nNota.getFiBanOtros()));
+
+		return hnota;
+
+	}
 	
 	public NNota MapItemToNota(Item item) {
 		

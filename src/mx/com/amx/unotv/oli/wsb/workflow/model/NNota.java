@@ -196,4 +196,16 @@ public class NNota implements Serializable {
 		this.fiBanOtros = fiBanOtros;
 	}
 
+	@Override
+	public String toString() {
+		return "NNota [fcIdContenido=" + fcIdContenido + ", clGaleria=" + clGaleria + ", clRtfContenido="
+				+ clRtfContenido + ", fcAutor=" + fcAutor + ", fcDescripcion=" + fcDescripcion + ", fcFriendlyUrl="
+				+ fcFriendlyUrl + ", fcIdCategoria=" + fcIdCategoria + ", fcIdClassVideo=" + fcIdClassVideo
+				+ ", fcIdContentOoyala=" + fcIdContentOoyala + ", fcIdPlayerOoyala=" + fcIdPlayerOoyala
+				+ ", fcIdYoutube=" + fcIdYoutube + ", fcImagen=" + fcImagen + ", fcKeywords=" + fcKeywords
+				+ ", fcPieImagen=" + fcPieImagen + ", fcTipoNota=" + fcTipoNota + ", fcTitulo=" + fcTitulo
+				+ ", fcUrlAutor=" + fcUrlAutor + ", fdFechaModificacion=" + fdFechaModificacion
+				+ ", fdFechaPublicacion=" + fdFechaPublicacion + ", fiBanOtros=" + fiBanOtros + "]";
+	}
+
 }

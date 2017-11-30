@@ -67,7 +67,7 @@ public class HNotaCallWS {
 	}
 	
 	
-	public int insert(NNota nota) throws HNotaCallWSException {
+	public int insert(HNota nota) throws HNotaCallWSException {
 
 		int res = 0;
 		String metodo = "/insert";
@@ -75,6 +75,7 @@ public class HNotaCallWS {
 
 		logger.info("--- insertNota --- [ HNotaCallWS ] --- ");
 		logger.info("--- URL : " + URL_WS);
+		logger.debug("--- DTO :"+nota.toString());
 
 		try {
 			
@@ -97,7 +98,7 @@ public class HNotaCallWS {
 	}
 	
 	
-	public int update(NNota nota) throws HNotaCallWSException {
+	public int update(HNota nota) throws HNotaCallWSException {
 
 		int res = 0;
 		String metodo = "/update";
@@ -105,6 +106,7 @@ public class HNotaCallWS {
 
 		logger.info("--- updateNota --- [ HNotaCallWS ] --- ");
 		logger.info("--- URL : " + URL_WS);
+		logger.debug("--- DTO :"+nota.toString());
 
 		try {
 			logger.info("URL_WS: " + URL_WS);

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import mx.com.amx.unotv.oli.wsb.workflow.bo.exception.NotaBOException;
 import mx.com.amx.unotv.oli.wsb.workflow.model.NNota;
+import mx.com.amx.unotv.oli.wsb.workflow.util.MapItemUtil;
 import mx.com.amx.unotv.oli.wsb.workflow.ws.HNotaCallWS;
 import mx.com.amx.unotv.oli.wsb.workflow.ws.NNotaCallWS;
 import mx.com.amx.unotv.oli.wsb.workflow.model.HNota;
@@ -23,6 +24,10 @@ public class NotaBO {
 	NNotaCallWS nNotaCallWS;
 	@Autowired
 	HNotaCallWS hNotaCallWS;
+	
+	@Autowired
+	MapItemUtil mapItemUtil;
+	
 
 	private static Logger logger = Logger.getLogger(NotaBO.class);
 	
@@ -100,7 +105,9 @@ public class NotaBO {
 
 			res = nNotaCallWS.insert(nota);
 			if (res > 0) {
-				res = hNotaCallWS.insert(nota);
+				
+				HNota hnota = mapItemUtil.MapNNotaToHNota(nota);
+				res = hNotaCallWS.insert(hnota);
 			}
 
 		} catch (Exception e) {
@@ -131,7 +138,8 @@ public class NotaBO {
 			 * si se inserto o actualizo informacion en NNota , Inserta informacion en HNota
 			 */
 			if (res > 0) {
-				res = hNotaCallWS.update(nota);
+				HNota hnota = mapItemUtil.MapNNotaToHNota(nota);
+				res = hNotaCallWS.update(hnota);
 			}
 
 		} catch (Exception e) {

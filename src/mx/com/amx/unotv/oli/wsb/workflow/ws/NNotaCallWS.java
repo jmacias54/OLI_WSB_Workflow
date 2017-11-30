@@ -78,6 +78,7 @@ public class NNotaCallWS {
 
 		logger.info("--- insert --- [ NNotaCallWS ] --- ");
 		logger.info("--- URL : " + URL_WS);
+		logger.debug("--- DTO :"+nota.toString());
 
 		try {
 			
@@ -139,6 +140,7 @@ public class NNotaCallWS {
 
 		logger.info("--- update --- [ NNotaCallWS ] --- ");
 		logger.info("--- URL : " + URL_WS);
+		logger.debug("--- DTO :"+nota.toString());
 
 		try {
 			logger.info("URL_WS: " + URL_WS);
