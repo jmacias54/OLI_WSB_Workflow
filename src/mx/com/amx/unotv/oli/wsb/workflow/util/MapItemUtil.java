@@ -24,7 +24,7 @@ public class MapItemUtil {
 				nNota.getFcIdClassVideo(), nNota.getFcIdContentOoyala(), nNota.getFcIdPlayerOoyala(),
 				nNota.getFcTipoNota(), nNota.getFcIdYoutube(), nNota.getFcImagen(), nNota.getFcKeywords(),
 				nNota.getFcPieImagen(), nNota.getFcTitulo(), nNota.getFcUrlAutor(), nNota.getFdFechaModificacion(),
-				nNota.getFdFechaPublicacion(), Integer.parseInt(nNota.getFiBanOtros()));
+				nNota.getFdFechaPublicacion(), nNota.getFiBanOtros());
 
 		return hnota;
 

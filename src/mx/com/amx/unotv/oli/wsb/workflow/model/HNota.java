@@ -30,7 +30,7 @@ public class HNota implements Serializable {
 	private String fcUrlAutor;
 	private String fdFechaModificacion;
 	private String fdFechaPublicacion;
-	private Integer fiBanOtros;
+	private String fiBanOtros;
 
 	public HNota() {
 	}
@@ -63,7 +63,7 @@ public class HNota implements Serializable {
 			String fcFriendlyUrl, String fcIdCategoria, String fcIdClassVideo, String fcIdContentOoyala,
 			String fcIdPlayerOoyala, String fcIdTipoNota, String fcIdYoutube, String fcImagen, String fcKeywords,
 			String fcPieImagen, String fcTitulo, String fcUrlAutor, String fdFechaModificacion,
-			String fdFechaPublicacion, Integer fiBanOtros) {
+			String fdFechaPublicacion, String fiBanOtros) {
 		super();
 		this.fcIdContenido = fcIdContenido;
 		this.clGaleria = clGaleria;
@@ -241,11 +241,11 @@ public class HNota implements Serializable {
 		this.fdFechaPublicacion = fdFechaPublicacion;
 	}
 
-	public Integer getFiBanOtros() {
+	public String getFiBanOtros() {
 		return this.fiBanOtros;
 	}
 
-	public void setFiBanOtros(Integer fiBanOtros) {
+	public void setFiBanOtros(String fiBanOtros) {
 		this.fiBanOtros = fiBanOtros;
 	}
 
