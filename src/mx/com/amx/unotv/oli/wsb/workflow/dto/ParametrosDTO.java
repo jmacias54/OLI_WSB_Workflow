@@ -69,6 +69,9 @@ public class ParametrosDTO implements Serializable {
 	private String correo_error_smtpsender;
 
 	
+	private String dominioDesarrollo;
+	private String dominioProduccion;
+	private String baseMenuPortal;
 	
 	
 	
@@ -77,6 +80,31 @@ public class ParametrosDTO implements Serializable {
 	
 	
 	
+	
+	public String getDominioDesarrollo() {
+		return dominioDesarrollo;
+	}
+
+	public void setDominioDesarrollo(String dominioDesarrollo) {
+		this.dominioDesarrollo = dominioDesarrollo;
+	}
+
+	public String getDominioProduccion() {
+		return dominioProduccion;
+	}
+
+	public void setDominioProduccion(String dominioProduccion) {
+		this.dominioProduccion = dominioProduccion;
+	}
+
+	public String getBaseMenuPortal() {
+		return baseMenuPortal;
+	}
+
+	public void setBaseMenuPortal(String baseMenuPortal) {
+		this.baseMenuPortal = baseMenuPortal;
+	}
+
 	public String getFcIdSeccion() {
 		return fcIdSeccion;
 	}

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.TimeZone;
 import org.apache.commons.lang.CharUtils;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -182,6 +183,8 @@ public class Utils {
 
 		// numberUnoCross
 		try {
+			
+		
 
 			String[] pala = contentDTO.getFcFriendlyUrl().split("-");
 			String id = "";
@@ -242,7 +245,12 @@ public class Utils {
 		// $WCM_FECHA$
 		try {
 			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-			HTML = HTML.replace("$WCM_FECHA$", format.format(new Date()));
+			SimpleDateFormat formato = 
+				    new SimpleDateFormat(" MMMM dd yyyy",  new Locale("es", "ES"));
+				String fecha = formato.format(new Date());
+			
+				HTML = HTML.replace("$WCM_FECHA$", fecha);
+			// HTML = HTML.replace("$WCM_FECHA$", format.format(new Date()));
 		} catch (Exception e) {
 			HTML = HTML.replace("$WCM_FECHA$", "");
 			LOG.error("Error al remplazar $WCM_FECHA$");
@@ -266,10 +274,18 @@ public class Utils {
 		// $WCM_AUTOR$
 		try {
 			String autor = contentDTO.getFcAutor()== null ? "" : contentDTO.getFcAutor();
+			String URLAutor = contentDTO.getFcUrlAutor()== null ? "" : contentDTO.getFcUrlAutor();
+			
+			
 			HTML = HTML.replace("$WCM_AUTOR$", StringEscapeUtils.escapeHtml(autor).trim());
+			HTML = HTML.replace("$WCM_URL_AUTOR$", StringEscapeUtils.escapeHtml(URLAutor).trim());
+			
+			
+			
 		} catch (Exception e) {
 			HTML = HTML.replace("$WCM_AUTOR$", "");
-			LOG.error("Error al remplazar $WCM_AUTOR$");
+			HTML = HTML.replace("$WCM_URL_AUTOR$", "");
+			LOG.error("Error al remplazar $WCM_AUTOR$  ó  $WCM_URL_AUTOR$ ");
 		}
 
 		// $WCM_LUGAR$
@@ -392,6 +408,21 @@ public class Utils {
 		}
 
 		HTML = HTML.replace(parametrosDTO.getBasePagesPortal(), "");
+		
+		LOG.debug(" --------------------------------------------------------");
+		
+		LOG.debug(" BASE MENU PORTAL :"+parametrosDTO.getBaseMenuPortal());
+		LOG.debug(" AMBIENTE ACTUAL :"+parametrosDTO.getAmbiente());
+		LOG.debug(" URI DESARROLLO :"+parametrosDTO.getDominioDesarrollo());
+		LOG.debug(" URI PROD :"+parametrosDTO.getDominioProduccion());
+		
+		LOG.debug(" --------------------------------------------------------");
+		
+		HTML = HTML.replace(parametrosDTO.getBaseMenuPortal(), "");
+		
+		if(parametrosDTO.getAmbiente().equals("desarrollo")) {
+			HTML =HTML.replace(parametrosDTO.getDominioProduccion(), parametrosDTO.getDominioDesarrollo());
+		}
 
 		return HTML;
 	}
@@ -439,7 +470,10 @@ public class Utils {
 		String galeria = dto.getClGaleria() == null ? "" : dto.getClGaleria();
 
 		if (!galeria.trim().equals("")) {
-			mediaImage.append(cambiaCaracteres(galeria));
+			mediaImage.append("<img src='"+cambiaCaracteres(galeria)+"'>");
+		}else {
+			
+			mediaImage.append("<img src='"+cambiaCaracteres(imgPrincipal)+"'>");
 		}
 		return mediaImage.toString();
 	}

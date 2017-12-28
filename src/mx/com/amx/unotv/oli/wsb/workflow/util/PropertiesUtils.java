@@ -38,7 +38,7 @@ public class PropertiesUtils {
 			Properties propsServer = new Properties();		
 			propsServer.load(new FileInputStream(new File(rutaProperties)));
 			
-			
+			parametrosDTO.setAmbiente(ambiente);
 			parametrosDTO.setDominio(propsServer.getProperty("dominio"));
 			parametrosDTO.setPathFiles(propsServer.getProperty("pathFiles"));
 			
@@ -46,7 +46,9 @@ public class PropertiesUtils {
 			//urlCropImage
 			parametrosDTO.setUrlCropImage(propsServer.getProperty("url_crop_image"));
 			
-			
+			parametrosDTO.setDominioDesarrollo(propsServer.getProperty("dominioDesarrollo"));
+			parametrosDTO.setDominioProduccion(propsServer.getProperty("dominioProduccion"));
+			parametrosDTO.setBaseMenuPortal(propsServer.getProperty("baseMenuPortal"));
 			
 			parametrosDTO.setURL_WEBSERVER_AMP(propsServer.getProperty("URL_WEBSERVER_AMP"));
 			parametrosDTO.setURL_WEBSERVER_CSS_AMP(propsServer.getProperty("URL_WEBSERVER_CSS_AMP"));
@@ -63,7 +65,7 @@ public class PropertiesUtils {
 			parametrosDTO.setBasePagesPortal(propsServer.getProperty("basePagesPortal"));	
 			parametrosDTO.setPathDetalle(propsServer.getProperty("pathDetalle"));
 			parametrosDTO.setDominio(propsServer.getProperty("dominio"));
-			parametrosDTO.setAmbiente(propsServer.getProperty("ambiente"));
+			
 			parametrosDTO.setMetaVideo(propsServer.getProperty("metaVideo"));
 			parametrosDTO.setMetaVideoSecureUrl(propsServer.getProperty("metaVideoSecureUrl"));
 			parametrosDTO.setPathFilesTest(propsServer.getProperty("pathFilesTest"));
