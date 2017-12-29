@@ -19,47 +19,45 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import  mx.com.amx.unotv.oli.wsb.workflow.dto.ParametrosDTO;
-import  mx.com.amx.unotv.oli.wsb.workflow.dto.RedSocialEmbedPostDTO;
-import  mx.com.amx.unotv.oli.wsb.workflow.model.NNota;
+import mx.com.amx.unotv.oli.wsb.workflow.dto.ParametrosDTO;
+import mx.com.amx.unotv.oli.wsb.workflow.dto.RedSocialEmbedPostDTO;
+import mx.com.amx.unotv.oli.wsb.workflow.model.NNota;
 
 /**
  * @author Jesus A. Macias Benitez
  *
  */
 public class Utils {
-	
-	/*@Autowired
-	CatalogsCallWS catalogsCallWS;*/
+
+	/*
+	 * @Autowired CatalogsCallWS catalogsCallWS;
+	 */
 
 	// LOG
 	private static Logger LOG = Logger.getLogger(Utils.class);
-	
-	
-	public static boolean deleteHTML(String pathHTML) 
-	{
-		LOG.debug("Inicia deleteHTML");
-		LOG.debug("pathHTML: "+pathHTML);
-		try {
-			File fileHTML = new File(pathHTML+"/index.html") ;
-			File fileAMP = new File(pathHTML+"/amp.html") ;
-			File fileJSON = new File(pathHTML+"/detalle.json") ;
 
-			//Borramos archivos
+	public static boolean deleteHTML(String pathHTML) {
+		LOG.debug("Inicia deleteHTML");
+		LOG.debug("pathHTML: " + pathHTML);
+		try {
+			File fileHTML = new File(pathHTML + "/index.html");
+			File fileAMP = new File(pathHTML + "/amp.html");
+			File fileJSON = new File(pathHTML + "/detalle.json");
+
+			// Borramos archivos
 			fileHTML.delete();
 			fileAMP.delete();
 			fileJSON.delete();
-			
-			//Borramos directorio
-			File directorio = new File(pathHTML) ;
+
+			// Borramos directorio
+			File directorio = new File(pathHTML);
 			return directorio.delete();
-			
+
 		} catch (Exception e) {
-			LOG.error("Exception en deleteHTML: ",e);
+			LOG.error("Exception en deleteHTML: ", e);
 			return false;
-		} 		
+		}
 	}
-	
 
 	public static String getRutaContenido(NNota nota) throws Exception {
 		LOG.debug("**** Inicia getRutaContenido[Utils]");
@@ -67,8 +65,7 @@ public class Utils {
 
 		try {
 
-			rutaContenido =   nota.getFcIdCategoria()
-					+ "/detalle/" + nota.getFcFriendlyUrl() ;
+			rutaContenido = nota.getFcIdCategoria() + "/detalle/" + nota.getFcFriendlyUrl();
 
 			LOG.debug("rutaContenido: " + rutaContenido);
 		} catch (Exception e) {
@@ -80,16 +77,16 @@ public class Utils {
 
 	public static boolean createFolders(String carpetaContenido) throws Exception {
 		LOG.error(" --- Inicio createFolders ---- ");
-		LOG.error(" --- PATH  : "+carpetaContenido);
+		LOG.error(" --- PATH  : " + carpetaContenido);
 		boolean success = false;
 		try {
 			File carpetas = new File(carpetaContenido);
 			if (!carpetas.exists()) {
-				LOG.error(" --- mkdir  : "+carpetaContenido);
+				LOG.error(" --- mkdir  : " + carpetaContenido);
 				success = carpetas.mkdirs();
 			} else
-				LOG.error(" --- Las carpetas  : "+carpetaContenido+" ya existen ---");
-				success = true;
+				LOG.error(" --- Las carpetas  : " + carpetaContenido + " ya existen ---");
+			success = true;
 		} catch (Exception e) {
 			success = false;
 			LOG.error("Ocurrio error al crear las carpetas: ", e);
@@ -120,17 +117,16 @@ public class Utils {
 				// Nos conectamos a la plantilla detalle-prerender de portal
 				LOG.info("---- Conectandose a : " + parametrosDTO.getTemplateHtml());
 				doc = Jsoup.connect(parametrosDTO.getTemplateHtml()).timeout(120000).get();
-				
+
 			} catch (Exception e) {
 				LOG.error("Ocurrio error al Obtener el HTML de : ", e);
-			
+
 			}
 
-			
 			if (doc != null) {
 
 				LOG.debug("--- Se Crea Plantilla --- ");
-			
+
 				String HTML = doc.html();
 
 				// Creamos el HTML con base a la plantilla
@@ -138,7 +134,7 @@ public class Utils {
 
 				String rutaHTML = urlNota;
 				LOG.info("Ruta HTML: " + rutaHTML);
-				success = writeHTML(rutaHTML+"/index.html", HTML);
+				success = writeHTML(rutaHTML + "/index.html", HTML);
 				LOG.info("Genero HTML Local: " + success);
 			}
 		} catch (Exception e) {
@@ -183,8 +179,6 @@ public class Utils {
 
 		// numberUnoCross
 		try {
-			
-		
 
 			String[] pala = contentDTO.getFcFriendlyUrl().split("-");
 			String id = "";
@@ -211,9 +205,8 @@ public class Utils {
 		// Remplaza comscore
 		try {
 			HTML = HTML.replace("$WCM_NAVEGACION_COMSCORE$",
-					contentDTO.getFcTipoNota() + "." 
-							+ contentDTO.getFcIdCategoria() + "." + parametrosDTO.getPathDetalle() + "."
-							+ contentDTO.getFcFriendlyUrl());
+					contentDTO.getFcTipoNota() + "." + contentDTO.getFcIdCategoria() + "."
+							+ parametrosDTO.getPathDetalle() + "." + contentDTO.getFcFriendlyUrl());
 		} catch (Exception e) {
 			LOG.error("Error al sustituir navegacion  comscore");
 		}
@@ -245,11 +238,10 @@ public class Utils {
 		// $WCM_FECHA$
 		try {
 			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-			SimpleDateFormat formato = 
-				    new SimpleDateFormat(" MMMM dd yyyy",  new Locale("es", "ES"));
-				String fecha = formato.format(new Date());
-			
-				HTML = HTML.replace("$WCM_FECHA$", fecha);
+			SimpleDateFormat formato = new SimpleDateFormat(" MMMM dd yyyy", new Locale("es", "ES"));
+			String fecha = formato.format(new Date());
+
+			HTML = HTML.replace("$WCM_FECHA$", fecha);
 			// HTML = HTML.replace("$WCM_FECHA$", format.format(new Date()));
 		} catch (Exception e) {
 			HTML = HTML.replace("$WCM_FECHA$", "");
@@ -258,14 +250,12 @@ public class Utils {
 
 		// $WCM_HORA$
 		try {
-			
-		
+
 			Date time = new Date();
 			int hours = time.getHours();
 			int minutes = time.getMinutes();
-		
-			
-			HTML = HTML.replace("$WCM_HORA$", hours +":"+minutes);
+
+			HTML = HTML.replace("$WCM_HORA$", hours + ":" + minutes);
 		} catch (Exception e) {
 			HTML = HTML.replace("$WCM_HORA$", "");
 			LOG.error("Error al remplazar $WCM_HORA$");
@@ -273,15 +263,12 @@ public class Utils {
 
 		// $WCM_AUTOR$
 		try {
-			String autor = contentDTO.getFcAutor()== null ? "" : contentDTO.getFcAutor();
-			String URLAutor = contentDTO.getFcUrlAutor()== null ? "" : contentDTO.getFcUrlAutor();
-			
-			
+			String autor = contentDTO.getFcAutor() == null ? "" : contentDTO.getFcAutor();
+			String URLAutor = contentDTO.getFcUrlAutor() == null ? "" : contentDTO.getFcUrlAutor();
+
 			HTML = HTML.replace("$WCM_AUTOR$", StringEscapeUtils.escapeHtml(autor).trim());
 			HTML = HTML.replace("$WCM_URL_AUTOR$", StringEscapeUtils.escapeHtml(URLAutor).trim());
-			
-			
-			
+
 		} catch (Exception e) {
 			HTML = HTML.replace("$WCM_AUTOR$", "");
 			HTML = HTML.replace("$WCM_URL_AUTOR$", "");
@@ -289,15 +276,14 @@ public class Utils {
 		}
 
 		// $WCM_LUGAR$
-		
+
 		/*
-		try {
-			String lugar = contentDTO.getFcLugar() == null ? "" : contentDTO.getFcLugar();
-			HTML = HTML.replace("$WCM_LUGAR$", StringEscapeUtils.escapeHtml(lugar));
-		} catch (Exception e) {
-			HTML = HTML.replace("$WCM_LUGAR$", "");
-			LOG.error("Error al remplazar $WCM_LUGAR$");
-		}*/
+		 * try { String lugar = contentDTO.getFcLugar() == null ? "" :
+		 * contentDTO.getFcLugar(); HTML = HTML.replace("$WCM_LUGAR$",
+		 * StringEscapeUtils.escapeHtml(lugar)); } catch (Exception e) { HTML =
+		 * HTML.replace("$WCM_LUGAR$", ""); LOG.error("Error al remplazar $WCM_LUGAR$");
+		 * }
+		 */
 
 		// $WCM_CATEGORIA$
 		try {
@@ -310,13 +296,12 @@ public class Utils {
 
 		// $WCM_FUENTE$
 		/*
-		try {
-			String fuente = contentDTO.getFcFuente() == null ? "" : contentDTO.getFcFuente();
-			HTML = HTML.replace("$WCM_FUENTE$", StringEscapeUtils.escapeHtml(fuente));
-		} catch (Exception e) {
-			HTML = HTML.replace("$WCM_FUENTE$", "");
-			LOG.error("Error al remplazar $WCM_FUENTE$");
-		}*/
+		 * try { String fuente = contentDTO.getFcFuente() == null ? "" :
+		 * contentDTO.getFcFuente(); HTML = HTML.replace("$WCM_FUENTE$",
+		 * StringEscapeUtils.escapeHtml(fuente)); } catch (Exception e) { HTML =
+		 * HTML.replace("$WCM_FUENTE$", "");
+		 * LOG.error("Error al remplazar $WCM_FUENTE$"); }
+		 */
 
 		// Apartados multimedia
 		try {
@@ -365,6 +350,7 @@ public class Utils {
 		}
 
 		// $WCM_RTF_CONTENIDO$
+		// $WCM_RTF_CONTENIDO$
 		try {
 			HTML = HTML.replace("$WCM_RTF_CONTENIDO$", cambiaCaracteres(getEmbedPost(contentDTO.getClRtfContenido())));
 		} catch (Exception e) {
@@ -408,20 +394,20 @@ public class Utils {
 		}
 
 		HTML = HTML.replace(parametrosDTO.getBasePagesPortal(), "");
-		
+
 		LOG.debug(" --------------------------------------------------------");
-		
-		LOG.debug(" BASE MENU PORTAL :"+parametrosDTO.getBaseMenuPortal());
-		LOG.debug(" AMBIENTE ACTUAL :"+parametrosDTO.getAmbiente());
-		LOG.debug(" URI DESARROLLO :"+parametrosDTO.getDominioDesarrollo());
-		LOG.debug(" URI PROD :"+parametrosDTO.getDominioProduccion());
-		
+
+		LOG.debug(" BASE MENU PORTAL :" + parametrosDTO.getBaseMenuPortal());
+		LOG.debug(" AMBIENTE ACTUAL :" + parametrosDTO.getAmbiente());
+		LOG.debug(" URI DESARROLLO :" + parametrosDTO.getDominioDesarrollo());
+		LOG.debug(" URI PROD :" + parametrosDTO.getDominioProduccion());
+
 		LOG.debug(" --------------------------------------------------------");
-		
+
 		HTML = HTML.replace(parametrosDTO.getBaseMenuPortal(), "");
-		
-		if(parametrosDTO.getAmbiente().equals("desarrollo")) {
-			HTML =HTML.replace(parametrosDTO.getDominioProduccion(), parametrosDTO.getDominioDesarrollo());
+
+		if (parametrosDTO.getAmbiente().equals("desarrollo")) {
+			HTML = HTML.replace(parametrosDTO.getDominioProduccion(), parametrosDTO.getDominioDesarrollo());
 		}
 
 		return HTML;
@@ -441,8 +427,6 @@ public class Utils {
 		}
 		return stringBuffer.toString();
 	}
-
-	
 
 	private static String getMediaContent(NNota dto, ParametrosDTO parametrosDTO) {
 		String media = "";
@@ -470,10 +454,10 @@ public class Utils {
 		String galeria = dto.getClGaleria() == null ? "" : dto.getClGaleria();
 
 		if (!galeria.trim().equals("")) {
-			mediaImage.append("<img src='"+cambiaCaracteres(galeria)+"'>");
-		}else {
-			
-			mediaImage.append("<img src='"+cambiaCaracteres(imgPrincipal)+"'>");
+			mediaImage.append("<img src='" + cambiaCaracteres(galeria) + "'>");
+		} else {
+
+			mediaImage.append("<img src='" + cambiaCaracteres(imgPrincipal) + "'>");
 		}
 		return mediaImage.toString();
 	}
@@ -491,7 +475,7 @@ public class Utils {
 
 		StringBuffer mediaContent = new StringBuffer();
 		String IdVideoYouTube = dto.getFcIdYoutube() == null ? "" : dto.getFcIdYoutube().trim();
-		String IdVideoOoyala = dto.getFcIdContentOoyala()== null ? "" : dto.getFcIdContentOoyala().trim();
+		String IdVideoOoyala = dto.getFcIdContentOoyala() == null ? "" : dto.getFcIdContentOoyala().trim();
 		String IdPlayerVideoOoyala = dto.getFcIdPlayerOoyala() == null ? "" : dto.getFcIdPlayerOoyala().trim();
 
 		if (!IdVideoYouTube.trim().equals("")) {
@@ -520,76 +504,71 @@ public class Utils {
 					" <script src=\"//player.ooyala.com/static/v4/stable/4.13.5/video-plugin/main_html5.min.js\"></script> \n");
 			mediaContent.append(
 					" <script src=\"//player.ooyala.com/static/v4/stable/4.13.5/skin-plugin/html5-skin.min.js\"></script> \n");
-			
-			
+
 			mediaContent.append(
 					" <script src=\"//player.ooyala.com/static/v4/stable/4.13.5/ad-plugin/google_ima.min.js\"></script> \n");
-			
+
 			/*
-			mediaContent.append(" <script> \n");
-			mediaContent.append("   var playerParam = { \n");
-			mediaContent.append("     'pcode': '" + dto.getFcIdPcode() + "', \n");
-			mediaContent.append("     'playerBrandingId': \"" + IdPlayerVideoOoyala + "\", \n");
-			mediaContent.append("     'skin': { \n");
-			mediaContent.append("       'config': '/ooyala/4.13.5/skin.json' \n");
-			mediaContent.append("     } \n");
-			mediaContent.append("   }; \n");
-			mediaContent.append("   OO.ready(function() { \n");
-			mediaContent.append(
-					"     window.pp = OO.Player.create('ooyalaplayer', \"" + IdVideoOoyala + "\", playerParam); \n");
-			mediaContent.append("   }); \n");
-			mediaContent.append(" </script> \n");*/
+			 * mediaContent.append(" <script> \n");
+			 * mediaContent.append("   var playerParam = { \n");
+			 * mediaContent.append("     'pcode': '" + dto.getFcIdPcode() + "', \n");
+			 * mediaContent.append("     'playerBrandingId': \"" + IdPlayerVideoOoyala +
+			 * "\", \n"); mediaContent.append("     'skin': { \n");
+			 * mediaContent.append("       'config': '/ooyala/4.13.5/skin.json' \n");
+			 * mediaContent.append("     } \n"); mediaContent.append("   }; \n");
+			 * mediaContent.append("   OO.ready(function() { \n"); mediaContent.append(
+			 * "     window.pp = OO.Player.create('ooyalaplayer', \"" + IdVideoOoyala +
+			 * "\", playerParam); \n"); mediaContent.append("   }); \n");
+			 * mediaContent.append(" </script> \n");
+			 */
 		}
 		return mediaContent.toString();
 	}
 
-
-
-
-	private static String cambiaCaracteres(String texto) {
-
-		texto = texto.replaceAll("Ã¡", "&#225;");
-		texto = texto.replaceAll("Ã©", "&#233;");
-		texto = texto.replaceAll("Ã­", "&#237;");
-		texto = texto.replaceAll("Ã³", "&#243;");
-		texto = texto.replaceAll("Ãº", "&#250;");
-		texto = texto.replaceAll("Ã�", "&#193;");
-		texto = texto.replaceAll("Ã‰", "&#201;");
-		texto = texto.replaceAll("Ã�", "&#205;");
-		texto = texto.replaceAll("Ã“", "&#211;");
-		texto = texto.replaceAll("Ãš", "&#218;");
-		texto = texto.replaceAll("Ã‘", "&#209;");
-		texto = texto.replaceAll("Ã±", "&#241;");
-		texto = texto.replaceAll("Âª", "&#170;");
-		texto = texto.replaceAll("Ã¤", "&#228;");
-		texto = texto.replaceAll("Ã«", "&#235;");
-		texto = texto.replaceAll("Ã¯", "&#239;");
-		texto = texto.replaceAll("Ã¶", "&#246;");
-		texto = texto.replaceAll("Ã¼", "&#252;");
-		texto = texto.replaceAll("Ã„", "&#196;");
-		texto = texto.replaceAll("Ã‹", "&#203;");
-		texto = texto.replaceAll("Ã�", "&#207;");
-		texto = texto.replaceAll("Ã–", "&#214;");
-		texto = texto.replaceAll("Ãœ", "&#220;");
-		texto = texto.replaceAll("Â¿", "&#191;");
-		texto = texto.replaceAll("Â“", "&#8220;");
-		texto = texto.replaceAll("Â”", "&#8221;");
-		texto = texto.replaceAll("Â‘", "&#8216;");
-		texto = texto.replaceAll("Â’", "&#8217;");
-		texto = texto.replaceAll("Â…", "...");
-		texto = texto.replaceAll("Â¡", "&#161;");
-		texto = texto.replaceAll("Â¿", "&#191;");
-		texto = texto.replaceAll("Â°", "&#176;");
-
-		texto = texto.replaceAll("Â“", "&#147;");
-		texto = texto.replaceAll("Â”", "&#148;");
-
-		texto = texto.replaceAll("Â–", "&#8211;");
-		texto = texto.replaceAll("Â—", "&#8212;");
-
-		// texto = texto.replaceAll("\"", "&#34;");
-		return texto;
-	}
+	/**
+	  * Clase para la codificacion de Caracteres
+	  * @param String, Texto a codificar
+	  * @return String, Texto codificado
+	  * */
+		static public String cambiaCaracteres(String texto) {
+			texto = texto.replaceAll("á", "&#225;");
+	        texto = texto.replaceAll("é", "&#233;");
+	        texto = texto.replaceAll("í", "&#237;");
+	        texto = texto.replaceAll("ó", "&#243;");
+	        texto = texto.replaceAll("ú", "&#250;");  
+	        texto = texto.replaceAll("Á", "&#193;");
+	        texto = texto.replaceAll("É", "&#201;");
+	        texto = texto.replaceAll("Í", "&#205;");
+	        texto = texto.replaceAll("Ó", "&#211;");
+	        texto = texto.replaceAll("Ú", "&#218;");
+	        texto = texto.replaceAll("Ñ", "&#209;");
+	        texto = texto.replaceAll("ñ", "&#241;");        
+	        texto = texto.replaceAll("ª", "&#170;");          
+	        texto = texto.replaceAll("ä", "&#228;");
+	        texto = texto.replaceAll("ë", "&#235;");
+	        texto = texto.replaceAll("ï", "&#239;");
+	        texto = texto.replaceAll("ö", "&#246;");
+	        texto = texto.replaceAll("ü", "&#252;");    
+	        texto = texto.replaceAll("Ä", "&#196;");
+	        texto = texto.replaceAll("Ë", "&#203;");
+	        texto = texto.replaceAll("Ï", "&#207;");
+	        texto = texto.replaceAll("Ö", "&#214;");
+	        texto = texto.replaceAll("Ü", "&#220;");
+	        texto = texto.replaceAll("¿", "&#191;");
+	        texto = texto.replaceAll("“", "&#8220;");        
+	        texto = texto.replaceAll("”", "&#8221;");
+	        texto = texto.replaceAll("‘", "&#8216;");
+	        texto = texto.replaceAll("’", "&#8217;");
+	        texto = texto.replaceAll("…", "...");
+	        texto = texto.replaceAll("¡", "&#161;");
+	        texto = texto.replaceAll("¿", "&#191;");
+	        texto = texto.replaceAll("°", "&#176;");
+	        
+	        texto = texto.replaceAll("–", "&#8211;");
+	        texto = texto.replaceAll("—", "&#8212;");
+	        //texto = texto.replaceAll("\"", "&#34;");
+			return texto;
+		}
 
 	private static String getEmbedPost(String RTFContenido) {
 		try {
@@ -841,21 +820,16 @@ public class Utils {
 
 		// Remplaza nota:tipo_seccion [$META_TIPO_SECCION$]
 		/*
-		try {
-			HTML = HTML.replace("$META_TIPO_SECCION$", parametrosDTO.getFcIdSeccion());
-		} catch (Exception e) {
-			HTML = HTML.replace("$META_TIPO_SECCION$", "");
-			LOG.error("Error al remplazar $META_TIPO_SECCION$");
-		}
-
-		// Remplaza nota:seccion [$META_SECCION$]
-		try {
-			HTML = HTML.replace("$META_SECCION$", parametrosDTO.getFcIdSeccion());
-		} catch (Exception e) {
-			HTML = HTML.replace("$META_SECCION$", "");
-			LOG.error("Error al remplazar $META_SECCION$");
-		}
-		*/
+		 * try { HTML = HTML.replace("$META_TIPO_SECCION$",
+		 * parametrosDTO.getFcIdSeccion()); } catch (Exception e) { HTML =
+		 * HTML.replace("$META_TIPO_SECCION$", "");
+		 * LOG.error("Error al remplazar $META_TIPO_SECCION$"); }
+		 * 
+		 * // Remplaza nota:seccion [$META_SECCION$] try { HTML =
+		 * HTML.replace("$META_SECCION$", parametrosDTO.getFcIdSeccion()); } catch
+		 * (Exception e) { HTML = HTML.replace("$META_SECCION$", "");
+		 * LOG.error("Error al remplazar $META_SECCION$"); }
+		 */
 
 		// Remplaza nota:categoria [$META_CATEGORIA$]
 		try {
@@ -866,12 +840,11 @@ public class Utils {
 		}
 
 		// Remplaza nota:tags [$META_TAGS$]
-		/*try {
-			HTML = HTML.replace("$META_TAGS$", cambiaCaracteres(contentDTO.getf));
-		} catch (Exception e) {
-			HTML = HTML.replace("$META_TAGS$", "");
-			LOG.error("Error al remplazar $META_TAGS$");
-		}*/
+		/*
+		 * try { HTML = HTML.replace("$META_TAGS$", cambiaCaracteres(contentDTO.getf));
+		 * } catch (Exception e) { HTML = HTML.replace("$META_TAGS$", "");
+		 * LOG.error("Error al remplazar $META_TAGS$"); }
+		 */
 
 		// Remplaza nota:tags [$META_IMG$]
 		try {
@@ -913,34 +886,22 @@ public class Utils {
 		}
 
 		// Remplaza nota:tags [$META_IMG$]
-		/*try {
-
-			LlamadasWSBO llamadasWSBO = new LlamadasWSBO();
-			// String
-			// cad="version_styles,$VERSION_STYLES$|version_scripts,$VERSION_SCRIPT$|version_libs,$VERSION_LIBS$|version_gas_json,$VERSION_GAS_JSON$|version_banner_json,$VERSION_BANNER_JSON$";
-			String[] params = parametrosDTO.getCatalogoParametros().split("\\|");
-			String valor = "";
-			String cad_a_reemplazar = "";
-			for (int i = 0; i < params.length; i++) {
-				valor = llamadasWSBO.getParameter(params[i].split("\\,")[0], parametrosDTO);
-				cad_a_reemplazar = params[i].split("\\,")[1];
-				if (valor != null && !valor.equals("")) {
-					HTML = HTML.replace(cad_a_reemplazar, valor);
-				} else {
-					HTML = HTML.replace(cad_a_reemplazar, "");
-				}
-			}
-		} catch (Exception e) {
-			LOG.error("Error al remplazar version de estilos" + e.getLocalizedMessage());
-		} */
+		/*
+		 * try {
+		 * 
+		 * LlamadasWSBO llamadasWSBO = new LlamadasWSBO(); // String // cad=
+		 * "version_styles,$VERSION_STYLES$|version_scripts,$VERSION_SCRIPT$|version_libs,$VERSION_LIBS$|version_gas_json,$VERSION_GAS_JSON$|version_banner_json,$VERSION_BANNER_JSON$";
+		 * String[] params = parametrosDTO.getCatalogoParametros().split("\\|"); String
+		 * valor = ""; String cad_a_reemplazar = ""; for (int i = 0; i < params.length;
+		 * i++) { valor = llamadasWSBO.getParameter(params[i].split("\\,")[0],
+		 * parametrosDTO); cad_a_reemplazar = params[i].split("\\,")[1]; if (valor !=
+		 * null && !valor.equals("")) { HTML = HTML.replace(cad_a_reemplazar, valor); }
+		 * else { HTML = HTML.replace(cad_a_reemplazar, ""); } } } catch (Exception e) {
+		 * LOG.error("Error al remplazar version de estilos" + e.getLocalizedMessage());
+		 * }
+		 */
 
 		return HTML;
 	}
-	
-	
-	
-	
-	
-
 
 }
